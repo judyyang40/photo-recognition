@@ -1,0 +1,29 @@
+{
+  "name": "photo-recognition",
+  "version": "1.0.0",
+  "description": "cmpe273",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/judyyang40/photo-recognition.git"
+  },
+  "keywords": [
+    "alexa",
+    "echo",
+    "mafia",
+    "game"
+  ],
+  "author": "Judy Yang",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/judyyang40/photo-recognition/issues"
+  },
+  "homepage": "https://github.com/judyyang40/photo-recognition#readme",
+  "dependencies": {
+    "express": "latest",
+    "body-parser": "latest"
+  }
+}
