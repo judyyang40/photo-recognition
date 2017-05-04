@@ -10,20 +10,15 @@
     "type": "git",
     "url": "git+https://github.com/judyyang40/photo-recognition.git"
   },
-  "keywords": [
-    "alexa",
-    "echo",
-    "mafia",
-    "game"
-  ],
-  "author": "Judy Yang",
+  
+  "author": "cmpe273 team",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/judyyang40/photo-recognition/issues"
   },
   "homepage": "https://github.com/judyyang40/photo-recognition#readme",
   "dependencies": {
-    "express": "latest",
-    "body-parser": "latest"
+    "express": "*",
+    "aws-sdk":"*"
   }
 }
