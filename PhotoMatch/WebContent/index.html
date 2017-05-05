@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+    <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+
+</head>
+<body>
+<!-- Page1 -->
+<div data-role="page" data-theme="a"  id="page1">
+    <div data-role="header" data-theme="a"  data-position="fixed">
+    	<!-- add icon picture here
+    	<img border="0" src="pic.png" height="50px" style="float:left;display:inline"/>-->
+        <h3>WELCOME</h3>
+    </div>
+
+    <div data-role="main" class="ui-content" style="max-width:1280px; margin: 0 auto;">
+	    <div data-role="fieldcontain">
+	    	<h3>Name info</h3>
+			<input type="text" name="name" id="first_name" value="" placeholder="First name"/>
+			<input type="text" name="name" id="middle_name" value="" placeholder="Middle name"/>
+			<input type="text" name="name" id="last_name" value="" placeholder="Last name"/>
+		</div>
+		
+		<h3>Birthday Info</h3>
+		<input type="date" name="date" id="date" value=""  />	
+		
+		 <div>
+        	<a href="#page2"  data-role="button" data-theme="a" id="btmtpage2">Next</a>        	
+        </div>	
+    </div>
+</div>
+
+<!-- Page2 -->
+<div data-role="page" data-theme="a"  id="page2">
+    <div data-role="header" data-theme="a"  data-position="fixed">
+    	<!-- add icon picture here
+    	<img border="0" src="pic.png" height="50px" style="float:left;display:inline"/>-->
+        <h3>Page2</h3>
+    </div>
+
+    <div data-role="main" class="ui-content" style="max-width:1280px; margin: 0 auto;">
+
+		 <div>
+        	<a href="#page3"  data-role="button" data-theme="a" id="btmtpage3">Next</a>        	
+        </div>	
+    </div>
+</div>
+
+<!-- Page3 -->
+<div data-role="page" data-theme="a"  id="page3">
+    <div data-role="header" data-theme="a"  data-position="fixed">
+    	<!-- add icon picture here
+    	<img border="0" src="pic.png" height="50px" style="float:left;display:inline"/>-->
+        <h3>Page3</h3>
+    </div>
+
+    <div data-role="main" class="ui-content" style="max-width:1280px; margin: 0 auto;">
+    	<div class="ui-grid-a">
+		    <div class="ui-block-a" style="max-width:1280px; margin: 0 auto; text-align: center;">
+		    	<img src="https://pbs.twimg.com/profile_images/2633978789/80508321d8ce3ba8aa264380bb7eba33_400x400.png"/>
+		    	<button class="ui-btn ui-state-disabled" >Your Image</button>
+		    </div>
+		    <div class="ui-block-b" style="max-width:1280px; margin: 0 auto; text-align: center;">
+		    	<img src="https://pbs.twimg.com/profile_images/2633978789/80508321d8ce3ba8aa264380bb7eba33_400x400.png"/>
+		    	<button class="ui-btn" >Take Picture</button>
+		    </div>
+		</div><!-- /grid-a -->
+		<div>
+        	<a href="#page4"  data-role="button" data-theme="a" id="btmtpage4">ANALYSE</a>        	
+        </div>	
+    </div>
+</div>
+
+<!-- Page4 -->
+<div data-role="page" data-theme="a"  id="page4">
+    <div data-role="header" data-theme="a"  data-position="fixed">
+    	<!-- add icon picture here
+    	<img border="0" src="pic.png" height="50px" style="float:left;display:inline"/>-->
+        <h3>Page4</h3>
+    </div>
+
+    <div data-role="main" class="ui-content" style="max-width:1280px; margin: 0 auto;">
+    	<div class="ui-grid-a" >
+		    <div class="ui-block-a" style="max-width:1280px; margin: 0 auto; text-align: center;">
+		    	<img src="https://pbs.twimg.com/profile_images/2633978789/80508321d8ce3ba8aa264380bb7eba33_400x400.png"/>
+		    </div>
+		    <div class="ui-block-b" style="max-width:1280px; margin: 0 auto; text-align: center;">
+		    	<img src="https://pbs.twimg.com/profile_images/2633978789/80508321d8ce3ba8aa264380bb7eba33_400x400.png"/>
+		    </div>
+		</div><!-- /grid-a -->
+		<ul data-role="listview" >
+		  <li style="text-align: center;"><h4>% Match</h4></li>
+		</ul>
+    </div>
+</div>
+
+</body>
+</html>
