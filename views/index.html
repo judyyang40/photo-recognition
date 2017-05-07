@@ -1,12 +1,27 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
 <head>
+<script src="../routes/photoManager.js">
+	</script>
+<meta charset="UTF-8">
 <title>Photo ID Recognition</title>
 </head>
+
 <body>
 
-<h1>Welcome the photo recognition app!</h1>
-<input type="file" accept="image/*" capture="camera">
+<h2>Please upload ID photo to our Database.</h2>
 
+<form onsubmit="uploadPhoto()" >
+	ID Name: <br>
+	<input type="text" id="userName">
+	<br><br>
+	Please upload photo here: <br>
+	<input type="file" id="photoUpload" accept="image/*" >
+	<br><br>
+	<input type="submit" value="Upload">
+</form>
+
+	
+<p id="response"> </p>
 </body>
 </html>

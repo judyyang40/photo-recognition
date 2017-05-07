@@ -18,7 +18,9 @@
   },
   "homepage": "https://github.com/judyyang40/photo-recognition#readme",
   "dependencies": {
-    "express": "*",
-    "aws-sdk":"*"
+    "express": "latest",
+    "body-parser": "latest",
+    "aws-sdk":"*",
+    "fine-uploader": "5.11.5"
   }
 }
