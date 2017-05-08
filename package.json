@@ -10,7 +10,6 @@
     "type": "git",
     "url": "git+https://github.com/judyyang40/photo-recognition.git"
   },
-  
   "author": "cmpe273 team",
   "license": "ISC",
   "bugs": {
@@ -18,9 +17,9 @@
   },
   "homepage": "https://github.com/judyyang40/photo-recognition#readme",
   "dependencies": {
+    "aws-sdk": "*",
+    "body-parser": "^1.17.1",
     "express": "latest",
-    "body-parser": "latest",
-    "aws-sdk":"*",
     "fine-uploader": "5.11.5"
   }
 }

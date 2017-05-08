@@ -1,8 +1,7 @@
 <!doctype html>
 <html>
 <head>
-<script src="../routes/photoManager.js">
-	</script>
+
 <meta charset="UTF-8">
 <title>Photo ID Recognition</title>
 </head>
@@ -11,9 +10,9 @@
 
 <h2>Please upload ID photo to our Database.</h2>
 
-<form onsubmit="uploadPhoto()" >
+<form action="/uploadIDPhoto" method="post">
 	ID Name: <br>
-	<input type="text" id="userName">
+	<input type="text" name="userName">
 	<br><br>
 	Please upload photo here: <br>
 	<input type="file" id="photoUpload" accept="image/*" >

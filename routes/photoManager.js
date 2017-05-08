@@ -1,5 +1,5 @@
 //adding photo to S3 bucket 'id-photo'
-function addPhoto() {
+module.exports.addPhoto = function () {
   var files = document.getElementById('photoUpload').files;
   if (!files.length) {
     return alert('Please choose a file to upload first.');
@@ -19,7 +19,7 @@ function addPhoto() {
 }
 
 
-function addToDB(file_url, user_name) {
+module.exports.addToDB = function (file_url, user_name) {
 	var table = new AWS.DynamoDB({apiVersion: '2012-08-10', params: {TableName: 'IdPhoto'}});
 // Write the item to the table
 	var itemParams = {
@@ -50,8 +50,7 @@ function getPhotoUrl(user_name) {
 }
 ***/
 
-
-function uploadPhoto() {
+module.exports.uploadPhoto = function () {
 	// Load the SDK for JavaScript
 	var AWS = require('aws-sdk');
 	// Load credentials and set region from JSON file
