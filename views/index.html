@@ -12,10 +12,10 @@
 
 <form action="/uploadIDPhoto" method="post">
 	ID Name: <br>
-	<input type="text" name="userName">
+	<input type="text" limit = "40" name="userName">
 	<br><br>
 	Please upload photo here: <br>
-	<input type="file" id="photoUpload" accept="image/*" >
+	<input type="file" name="photoUpload" accept="image/*" >
 	<br><br>
 	<input type="submit" value="Upload">
 </form>

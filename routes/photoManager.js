@@ -1,6 +1,6 @@
 //adding photo to S3 bucket 'id-photo'
-module.exports.addPhoto = function () {
-  var files = document.getElementById('photoUpload').files;
+module.exports.addToS3 = function (files) {
+  //var files = document.getElementById('photoUpload').files;
   if (!files.length) {
     return alert('Please choose a file to upload first.');
   }
@@ -19,7 +19,7 @@ module.exports.addPhoto = function () {
 }
 
 
-module.exports.addToDB = function (file_url, user_name) {
+module.exports.addToDynamoDB = function (file_url, user_name) {
 	var table = new AWS.DynamoDB({apiVersion: '2012-08-10', params: {TableName: 'IdPhoto'}});
 // Write the item to the table
 	var itemParams = {
@@ -36,38 +36,23 @@ module.exports.addToDB = function (file_url, user_name) {
 	});
 	
 }
-/***
-//reading photo url from DynamoDB by user name
-function getPhotoUrl(user_name) {
+
+
+module.exports.searchUser = function(user_name) {
 	var table = new AWS.DynamoDB({apiVersion: '2012-08-10', params: {TableName: 'IdPhoto'}});
-	var itemParams = {Key: {'Name': {S: user_name} }};
-
-	table.getItem(itemParams, function(err, data) {
-    							if (err) console.log(err, err.stack); // an error occurred
-    							else   return data['data']; // successful response
-							});// JavaScript Document
-
-}
-***/
-
-module.exports.uploadPhoto = function () {
-	// Load the SDK for JavaScript
-	var AWS = require('aws-sdk');
-	// Load credentials and set region from JSON file
-	AWS.config.loadFromPath('./config.json');
 	
-	// Create S3 service object
-	var s3 = new AWS.S3({apiVersion: '2006-03-01'});
-	var BUCKET = 'id-photo';
-	
-	var photo_url = addPhoto();
-	var userName = document.getElementById('userName');
-	
-	addToDB(photo_url, userName);
-	
-	docment.getElementById('response').innerHTML= 'sucessfully uploaded!';
+	try: 
+		response = table.get_item(
+			Key={'Name':user_name}
+		)
+	except ClientError as e:
+		return '';
+	else: 
+		item = response['item']
+		return item['data']
 	
 }
+
 
 
 /***
