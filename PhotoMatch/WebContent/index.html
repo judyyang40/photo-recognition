@@ -6,7 +6,43 @@
     <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
     <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
     <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
-
+	<script type="text/javascript" src="webcam.min.js"></script>
+	
+	<script>		
+		function take_snapshot() {
+			// take snapshot and get image data
+			Webcam.snap( function(data_uri) {
+				// display results in page
+				document.getElementById('my_camera').style.display = "none";
+				document.getElementById('snapshot_img').src=data_uri;
+				document.getElementById('snapshot_display').style.display = "block";
+				document.getElementById('camera_header').style.display = "block";
+				document.getElementById('my_camera').innerHTML = '<img src="'+data_uri+'"/>';
+				document.getElementById('camera_btn').style.display= "none";
+				document.getElementById('reset_camera_btn').style.display= "block";
+			} );
+		}
+		
+		function reset_snapshot() {
+			// take snapshot and get image data
+			document.getElementById('my_camera').innerHTML = "";
+			document.getElementById('camera_header').style.display= "none";
+			document.getElementById('my_camera').style.display = "block";
+			document.getElementById('snapshot_display').style.display = "none";
+			
+			Webcam.set({
+				width: 320,
+				height: 240,
+				image_format: 'jpeg',
+				jpeg_quality: 90
+			});
+			Webcam.attach( '#my_camera' );
+			
+			document.getElementById('camera_btn').style.display= "block";
+			document.getElementById('reset_camera_btn').style.display= "none";
+		}
+		
+	</script>
 </head>
 <body>
 <!-- Page1 -->
@@ -43,10 +79,12 @@
     </div>
 
     <div data-role="main" class="ui-content" style="max-width:1280px; margin: 0 auto;">
-
-		 <div>
-        	<a href="#page3"  data-role="button" data-theme="a" id="btmtpage3">Next</a>        	
-        </div>	
+		<div style="width: 100%; height: 100%; text-align: center;">
+			<img src="https://pbs.twimg.com/profile_images/2633978789/80508321d8ce3ba8aa264380bb7eba33_400x400.png"/>
+		</div>
+		<!--<input type="file" accept="image/*;capture=camera"> -->
+		<input type="file" name="pic" accept="image/*"/>
+		<a href="#page3"  data-role="button" data-theme="a" id="btmtpage3">Next</a>		 
     </div>
 </div>
 
@@ -59,19 +97,24 @@
     </div>
 
     <div data-role="main" class="ui-content" style="max-width:1280px; margin: 0 auto;">
-    	<div class="ui-grid-a">
-		    <div class="ui-block-a" style="max-width:1280px; margin: 0 auto; text-align: center;">
-		    	<img src="https://pbs.twimg.com/profile_images/2633978789/80508321d8ce3ba8aa264380bb7eba33_400x400.png"/>
-		    	<button class="ui-btn ui-state-disabled" >Your Image</button>
-		    </div>
-		    <div class="ui-block-b" style="max-width:1280px; margin: 0 auto; text-align: center;">
-		    	<img src="https://pbs.twimg.com/profile_images/2633978789/80508321d8ce3ba8aa264380bb7eba33_400x400.png"/>
-		    	<button class="ui-btn" >Take Picture</button>
-		    </div>
-		</div><!-- /grid-a -->
-		<div>
-        	<a href="#page4"  data-role="button" data-theme="a" id="btmtpage4">ANALYSE</a>        	
-        </div>	
+    	<div id="camera_header" style="display:none"><h2>Here is your image:</h2></div>
+    	<div id="my_camera" style="width: 100%; height: 100%; text-align: center;"></div>
+    	<div id="snapshot_display" style="width: 100%; height: 100%; text-align: center; display:none">
+    		<img id="snapshot_img" />	
+    	</div>
+    	<script>
+    		reset_snapshot();
+    	</script>
+    	
+		<button id="camera_btn" onClick="take_snapshot()" style="display:block">
+			Take Snapshot
+		</button>
+		
+		<button id="reset_camera_btn" onClick="reset_snapshot()" style="display:none">
+			Retake Snapshot
+		</button>
+		
+		<a href="#page4"  data-role="button" data-theme="a" id="btmtpage4">ANALYSE</a> 
     </div>
 </div>
 
