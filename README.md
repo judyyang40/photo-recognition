@@ -14,10 +14,12 @@ Task Distribution
 Chu-Yuan & Tao: 
 1. Three Functioin Implementation
 2. Application Integration
+
 Jing:
 1. Front End of Web App
 2. Front End Image Taking and Upload(Web & Phone)
 3. Project Documentation
+
 Wei:
 1. Web App Architecture and Implementation 
 2. Application Deployment 
