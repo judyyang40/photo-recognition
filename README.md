@@ -13,14 +13,35 @@ Functions:
 Task Distribution
 Chu-Yuan & Tao: 
 1. Three Functioin Implementation
+2. Application Integration
 Jing:
 1. Front End of Web App
-2. Project Documentation
+2. Front End Image Taking and Upload(Web & Phone)
+3. Project Documentation
 Wei:
-1. Web App Architecture
-2. Application Deployment and Integration
+1. Web App Architecture and Implementation 
+2. Application Deployment 
 
 
-Our Scenarios:1.Upload ID photos to S3a.Select path/file_name in local hard disk for uploadingb.Add file to S3 photo albumc.Add file S3 URL to DynamoDBd.Display “Success uploading and number of items in DB”2.Input User Namea.Invoke a lambda function to check if there is an item in DynamoDBi.Yes: return URL where file stored in S3 ii.No: show “user not found” alert 
-b.Display the retrieved ID photo on screen3.Press “Capture” Buttona.Invoke camera to capture a live imagei.Ask for confirm or retake photoii.Display the newly taken image on screen
-b.Invoke a lambda function to call AWS rekognition API for face comparisonc.Display similarity result
+Our Scenarios:
+
+1.Input User Name and Birthday
+a.Invoke a lambda function to check if there is an image item matched with the user in DynamoDB
+i.Yes: return URL where file stored in S3 and display on page 2.
+ii.No: go to step 2.
+
+
+2.Upload ID photos to S3
+a.Select path/file_name in local hard disk for uploading
+b.Add file to S3 photo album
+c.Add file S3 URL to DynamoDB
+d.Display “Success uploading and number of items in DB”
+
+
+3.Press “Take Snapshot” Button
+a.Invoke camera to capture a live image
+i.Ask for confirm or retake photo
+ii.Display the newly taken image on screen
+b.Press "Analyze" to invoke a lambda function to call AWS rekognition API for face comparison
+
+4.Display similarity result
