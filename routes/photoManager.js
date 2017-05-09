@@ -30,27 +30,26 @@ module.exports.addToS3 = function (file) {
 module.exports.addToDynamoDB = function (file_url, user_name) {
 	
 	var table = new AWS.DynamoDB({apiVersion: '2012-08-10', params: {TableName: 'IdPhoto'}});
-// Write the item to the table
-	data = String(file_url);
-	name = String(user_name);
+	// Write the item to the table
+	//need to convert parameter to string!!!!!!!!!!!
 	var itemParams = {
     	Item: {
-        	'Name': {S: name},
-        	'data': {S: data}
+        	'Name':  {S: user_name},
+        	'data':  {S: file_url}
     	},
     	ReturnConsumedCapacity: 'TOTAL'
 	};
 
 	table.putItem(itemParams, function(err, data) {
     	if (err) console.log(err, err.stack); // an error occurred
-    	else     console.log(data);           // successful response
+    	else     console.log(data.Item);           // successful response
 	});
 	
 }
 
 
-module.exports.searchUser = function(user_name) {
-	
+
+module.exports.getUserIdPhoto = function(user_name) {
 	var table = new AWS.DynamoDB({apiVersion: '2012-08-10', params: {TableName: 'IdPhoto'}});
 	
 	var params = {
@@ -61,7 +60,7 @@ module.exports.searchUser = function(user_name) {
 	table.getItem(params, function(err, data){
 		if (err) return false;
 		else {
-			return true;
+			return data.Item;
 		}
 	})
 	

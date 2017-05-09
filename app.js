@@ -29,7 +29,7 @@ router.post('/uploadIDPhoto', function(req, res){
 	//get user_name input
 	user_name = req.body.userName;
 	//check for user_name in DyanomoDB
-	var hasName = photoManager.searchUser(user_name);
+	var hasName = photoManager.getUserIdPhoto(user_name);
 	if (hasName){
 		res.send('User Name already exist!');
 	}	
@@ -38,6 +38,9 @@ router.post('/uploadIDPhoto', function(req, res){
 	
 	//add file to S3, then S3 URL to DyanamoDB
 	var photo_url = photoManager.addToS3(image);
+	
+	
+	//need to pass in string format???????????????
 	photoManager.addToDynamoDB(photo_url, user_name);
 	
 	res.send('Successfully uploaded ' + user_name);
