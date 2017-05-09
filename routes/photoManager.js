@@ -1,31 +1,42 @@
+// Load the SDK for JavaScript
+var AWS = require('aws-sdk');
+// Load credentials and set region from JSON file
+AWS.config.loadFromPath('./config.json');	
+
+
 //adding photo to S3 bucket 'id-photo'
-module.exports.addToS3 = function (files) {
-  //var files = document.getElementById('photoUpload').files;
-  if (!files.length) {
-    return alert('Please choose a file to upload first.');
-  }
-  var file = files[0];
-  var fileName = file.name;
-  var uploadParams = {Bucket: BUCKET, Key: fileName, Body: file};
+module.exports.addToS3 = function (file) {
+	// Create S3 service object
+	var s3 = new AWS.S3({apiVersion: '2006-03-01'});
 	
-  s3.upload(uploadParams, function(err, data) {
-    if (err) {
-      return alert('There was an error uploading your photo: ', err.message);
-    }
-    alert('Successfully uploaded photo.'); 
-	console.log(data.location);
-	 return data.location;
-  });
+  	if (!file.data) {
+    return alert('Please choose a file to upload first.');
+  		}
+  	var fileName = file.name;
+	console.log(fileName);
+  	var uploadParams = {Bucket: 'id-photo', Key: fileName, Body: file.data, ACL:'public-read'};
+	
+  	s3.upload(uploadParams, function(err, data) {
+    	if (err) {
+      		return console.log('There was an error uploading your photo: '+ err.message);
+    	}
+    	console.log('Successfully uploaded photo.'); 
+			console.log(data.Location);
+		return data.Location;
+  	});
 }
 
 
 module.exports.addToDynamoDB = function (file_url, user_name) {
+	
 	var table = new AWS.DynamoDB({apiVersion: '2012-08-10', params: {TableName: 'IdPhoto'}});
 // Write the item to the table
+	data = String(file_url);
+	name = String(user_name);
 	var itemParams = {
     	Item: {
-        	'Name': {S: user_name},
-        	'data': {S: file_url}
+        	'Name': {S: name},
+        	'data': {S: data}
     	},
     	ReturnConsumedCapacity: 'TOTAL'
 	};
@@ -39,17 +50,20 @@ module.exports.addToDynamoDB = function (file_url, user_name) {
 
 
 module.exports.searchUser = function(user_name) {
+	
 	var table = new AWS.DynamoDB({apiVersion: '2012-08-10', params: {TableName: 'IdPhoto'}});
 	
-	try: 
-		response = table.get_item(
-			Key={'Name':user_name}
-		)
-	except ClientError as e:
-		return '';
-	else: 
-		item = response['item']
-		return item['data']
+	var params = {
+		Key: {
+			"Name": {S: user_name}
+		}	
+	}
+	table.getItem(params, function(err, data){
+		if (err) return false;
+		else {
+			return true;
+		}
+	})
 	
 }
 

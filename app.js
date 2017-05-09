@@ -2,19 +2,18 @@ var express = require('express');
 var app = express();
 var port = process.env.PORT || 8060;
 var options = {root: __dirname + '/views/'};
-
+//parse input text
 var bodyParser = require("body-parser");
 app.use(bodyParser.urlencoded({extended:false}));
 
-// Load the SDK for JavaScript
-var AWS = require('aws-sdk');
-// Load credentials and set region from JSON file
-AWS.config.loadFromPath('./config.json');	
-// Create S3 service object
-var s3 = new AWS.S3({apiVersion: '2006-03-01'});
-var BUCKET = 'id-photo';
+//file uploader
+var fileUpload = require('express-fileupload');
+app.use(fileUpload());
+
+var fs = require('fs');
+
 //import photoManager module
-var photoManager = require('./routes/photoManger.s');
+var photoManager = require('./routes/photoManager.js');
 
 //routes for API
 var router = express.Router();
@@ -27,18 +26,18 @@ router.get('/home', function(req, res) {
  }) 
 
 router.post('/uploadIDPhoto', function(req, res){
-	//get submitted data
-	files = req.body.photoUpload;
+	//get user_name input
 	user_name = req.body.userName;
-	
-	//search for user_name in DyanomoDB
-	var idPhoto_url = photoManager.searchUser(user_name);
-	if (!idPhoto_url){
+	//check for user_name in DyanomoDB
+	var hasName = photoManager.searchUser(user_name);
+	if (hasName){
 		res.send('User Name already exist!');
 	}	
+	//get image upload
+	image = req.files.upload;
 	
 	//add file to S3, then S3 URL to DyanamoDB
-	var photo_url = photoManager.addToS3(files);
+	var photo_url = photoManager.addToS3(image);
 	photoManager.addToDynamoDB(photo_url, user_name);
 	
 	res.send('Successfully uploaded ' + user_name);
