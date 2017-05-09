@@ -1,0 +1,6 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="photoMatch">
+    <output-path>$PROJECT_DIR$/out/artifacts/photoMatch</output-path>
+    <root id="root" />
+  </artifact>
+</component>
