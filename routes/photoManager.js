@@ -13,17 +13,19 @@ module.exports.addToS3 = function (file) {
     return alert('Please choose a file to upload first.');
   		}
   	var fileName = file.name;
-	console.log(fileName);
+
   	var uploadParams = {Bucket: 'id-photo', Key: fileName, Body: file.data, ACL:'public-read'};
-	
+	var url ='';
   	s3.upload(uploadParams, function(err, data) {
     	if (err) {
       		return console.log('There was an error uploading your photo: '+ err.message);
     	}
     	console.log('Successfully uploaded photo.'); 
-			console.log(data.Location);
-		return data.Location;
+		console.log(data.Location);//working 
+		url=data.Location;
   	});
+	return url;
+	
 }
 
 
@@ -44,6 +46,7 @@ module.exports.addToDynamoDB = function (file_url, user_name) {
     	if (err) console.log(err, err.stack); // an error occurred
     	else     console.log(data.Item);           // successful response
 	});
+
 	
 }
 

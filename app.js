@@ -80,12 +80,17 @@ router.post('/uploadIDPhoto', function(req, res){
 	console.log(req);
 	image = req.files.upload;
 	
-	//add file to S3, then S3 URL to DyanamoDB
+	//add file to S3, return S3 URL
 	var photo_url = photoManager.addToS3(image);
+<<<<<<< HEAD
 	
 	
 	//need to pass in string format???????????????
 	//photoManager.addToDynamoDB(photo_url, user_name);
+=======
+	//add S3 URL and user_name to DynamoDB
+	photoManager.addToDynamoDB(photo_url,user_name);
+>>>>>>> 54734fd3b262f1d968860b202e81adf7856b57e4
 	
 	res.send('Successfully uploaded ');
 })
