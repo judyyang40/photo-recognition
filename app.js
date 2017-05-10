@@ -81,27 +81,11 @@ router.post('/uploadIDPhoto', function(req, res){
 	id_photo_name = image.name;
 	
 	//add file to S3, return S3 URL
-<<<<<<< HEAD
-	var photo_url = photoManager.addToS3(id_photo);
 
-=======
-	var photo_url = photoManager.addToS3(image);
-/*<<<<<<< HEAD
->>>>>>> b553c7f1f09ee33d5865438f7c1728d245034e24
-	
-	
-	//need to pass in string format???????????????
-	//photoManager.addToDynamoDB(photo_url, user_name);
-<<<<<<< HEAD
+	var photo_url = photoManager.addToS3(id_photo);
 
 	//add S3 URL and S3 object Key (file_name) and user_name to DynamoDB
 	photoManager.addToDynamoDB(photo_url, user_name, id_photo_name);
-=======
-=======
-	//add S3 URL and user_name to DynamoDB
-	photoManager.addToDynamoDB(photo_url,user_name);
->>>>>>> 54734fd3b262f1d968860b202e81adf7856b57e4*/
->>>>>>> b553c7f1f09ee33d5865438f7c1728d245034e24
 	
 	res.send('Successfully uploaded ');
 })
