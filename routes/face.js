@@ -9,7 +9,7 @@ var GET_FACE_ID_URL = 'https://westus.api.cognitive.microsoft.com/face/v1.0/dete
 
 /**
  * Gets a faceid for the given picture
- * @returns {Promise} Promise with corrected faceid if succeeded, error otherwise.
+ * Return Promise with corrected faceid if succeeded, error otherwise.
  */
 exports.getFaceId = function (url) {
     return new Promise(
@@ -43,7 +43,7 @@ exports.getFaceId = function (url) {
 
 /**
  * Compares two pictures with the given faceids
- * @returns {Promise} Promise with confidence if succeeded, error otherwise.
+ * Returns Promise with confidence if succeeded, error otherwise.
  */
 exports.compareFace = function (faceId1, faceId2) {
     return new Promise (
