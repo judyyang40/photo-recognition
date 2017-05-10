@@ -5,6 +5,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script type="text/javascript" src="index.js"></script>
 </head>
 <body>
 
@@ -12,13 +13,14 @@
         <div class="row">
             <h1>Confirm Identity</h1>
             <div class="col-md-6">
-            <form action="/verifyUser" method="post" enctype="multipart/form-data">
+            	<form>
                 
-                	User Name: <br>
-						<input type="text" limit = "50" name="userName">
+                	<br> User Name: <br>
+						<input type="text" limit = "50" id="userName" name="userName">
 					<br><br><br>
-               		<input type="submit" value="Upload">
+               		<input onclick="return submitInfo();" value="Search for id photo">
 				</form>
+           		<img id="id-pic">
             </div>
             <div class="col-md-6">
                 

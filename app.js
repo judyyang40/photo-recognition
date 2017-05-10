@@ -32,10 +32,12 @@ router.get('/', function(req, res) {
 })
 
 router.post('/submitInfo', function(req, res) {
+	console.log("submitinfo"+req.body.username);
 	req.session.user = req.body.username;
 	photoManager.getUserIdPhoto(req.body.username, sendData);
 	function sendData(data) {
-		res.json({imgsrc: data});
+		req.session.file_name = data.file_name;
+		res.json({imgsrc: data.url});
 	}
 })
 
@@ -79,22 +81,12 @@ router.post('/uploadIDPhoto', function(req, res){
 	
 	id_photo = req.files.upload;
 	id_photo_name = id_photo.name;
-	
-	//add file to S3, return S3 URL
-
-	var photo_url = "";
-	var promise = photoManager.addToS3(id_photo).promise();
-	
-	
-	promise.then(function(data) {
-		console.log(data);
-		photo_url = data;
-	}).catch(function(err){
-		console.log(err);		
-	});
-
-	//add S3 URL and S3 object Key (file_name) and user_name to DynamoDB
-	photoManager.addToDynamoDB(photo_url, user_name, id_photo_name);
+	photoManager.addToS3(id_photo, returnURL);
+ 	function returnURL(data) {
+  	//res.json({imgsrc: data});
+  		console.log("in returnURL"+data);
+  		photoManager.addToDynamoDB(data, user_name, id_photo_name);
+ 	}
 	
 	res.send('Successfully uploaded ');
 })
@@ -112,7 +104,11 @@ router.post('/uploadtakepicture', function(req, res) {
 		ContentEncoding: 'base64',
 		ContentType: 'image/jpeg'
 	};
-	photoManager.testUpload(data);
+	photoManager.uploadSnapshot(data, callbackFunction);
+	funtion callbackFunction(data) {
+		photoManager.compareFace(req.session['file_name'], "snap.jpeg")
+	}
+	
 })
 
 //register routes

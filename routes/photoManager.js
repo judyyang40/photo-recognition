@@ -3,9 +3,11 @@ var AWS = require('aws-sdk');
 // Load credentials and set region from JSON file
 AWS.config.loadFromPath('./config.json');	
 
+AWS.config.apiVersions = {rekognition: '2016-06-27'};
+
 
 //adding photo to S3 bucket 'id-photo'
-module.exports.addToS3 = function (file) {
+module.exports.addToS3 = function (file, callback) {
 	// Create S3 service object
 	var s3 = new AWS.S3({apiVersion: '2006-03-01'});
 	
@@ -18,7 +20,7 @@ module.exports.addToS3 = function (file) {
 	
 	promise.then(function(data) {
 		console.log(data.Location);
-		return data.Location;
+		callback(data.Location);
 	}).catch(function(err){
 		console.log(err);		
 	});
@@ -60,11 +62,10 @@ module.exports.getUserIdPhoto = function(user_name, callback) {
 		}	
 	}
 	table.getItem(params, function(err, data){
-		if (err) {
-		}
+		if (err) {}
 		else {
 			if(data.Item != null)
-				callback(data.Item.file_url.S);
+				callback({file_name: data.Item.file_name.S, url: data.Item.data.S});
 			else {
 				newUser(user_name);
 				callback("https://pbs.twimg.com/profile_images/2633978789/80508321d8ce3ba8aa264380bb7eba33_400x400.png");
@@ -100,7 +101,7 @@ module.exports.getPics = function(user_name, callback) {
 	})
 }
 
-module.exports.testUpload = function(data) {
+module.exports.uploadSnapshot = function(data, callback) {
 	var s3 = new AWS.S3({apiVersion: '2006-03-01'});
 	  s3.putObject(data, function(err, data){
       if (err) { 
@@ -108,33 +109,42 @@ module.exports.testUpload = function(data) {
         console.log('Error uploading data: ', data); 
       } else {
         console.log('succesfully uploaded the image!');
+		callback();
       }
   });
 
 }
 
 
-/***
-//upload photo file from local disk to S3
-var uploadParams = {Bucket: BUCKET, Key: '', Body: ''};
-file = process.argv[2];
+module.exports.compareFace = function (idPhoto_name, liveImage_name){
+	var BUCKET = "id-photo";
+	var rekognition = new AWS.Rekognition();
 
-var fs = require('fs');
-var fileStream = fs.createReadStream(file);
-fileStream.on('error', function(err) {
-  console.log('File Error', err);
-});
-uploadParams.Body = fileStream;
+	var params = {
+		"SimilarityThreshold": 50,
+		"SourceImage": {
+			"S3Object": {
+				"Bucket":BUCKET,
+				"Name": idPhoto_name
+			}
+		},
+		"TargetImage": {
+			"S3Object": {
+				"Bucket":BUCKET,
+				"Name": liveImage_name
+			}
+	
+		}
+	}
 
-var path = require('path');
-uploadParams.Key = path.basename(file);
+	var promise = rekognition.compareFaces(params).promise();
+	
+	promise.then(function(data) {
+		return data.FaceMatches;
+	}).catch(function(err){
+		console.log(err);		
+	});
+	
 
-// call S3 to retrieve upload file to specified bucket
-s3.upload (uploadParams, function (err, data) {
-  if (err) {
-    console.log("Error", err);
-  } if (data) {
-    console.log("Upload Success", data.Location);
-  }
-});
-***/
+}
+

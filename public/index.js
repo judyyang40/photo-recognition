@@ -1,10 +1,11 @@
 function submitInfo() {
+	console.log("submitinfo");
     $.post('/submitInfo',
     {
-        username: $('#first_name').val()+$('#middle_name').val()+$('#last_name').val()
+        username: $('#userName').val()
     }, 
     function (data) {
-        $('#show-pic').attr('src', data.imgsrc);
+        $('#id-pic').attr('src', data.imgsrc);
     });
 }
 
