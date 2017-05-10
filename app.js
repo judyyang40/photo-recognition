@@ -5,6 +5,7 @@ var options = {root: __dirname + '/views/'};
 //parse input text
 var bodyParser = require("body-parser");
 var session = require('express-session');
+var multer = require('multer');
 
 app.set('trust proxy', 1);
 app.use(session({
@@ -14,6 +15,7 @@ app.use(session({
 	cookie: { secure: false}
 }))
 app.use(bodyParser.urlencoded({extended:false}));
+app.use(multer({dest: '/tmp/'}).single('file'));
 
 //file uploader
 var fileUpload = require('express-fileupload');
@@ -79,7 +81,7 @@ router.post('/uploadIDPhoto', function(req, res){
 	}*/	
 	//get image upload
 	
-	id_photo = req.files.upload;
+	id_photo = req.file;
 	id_photo_name = id_photo.name;
 	photoManager.addToS3(id_photo, returnURL);
  	function returnURL(data) {
