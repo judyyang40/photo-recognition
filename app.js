@@ -23,7 +23,6 @@ var fs = require('fs');
 
 //import photoManager module
 var photoManager = require('./routes/photoManager.js');
-var face = require('./routes/face.js');
 
 //routes for API
 var router = express.Router();
@@ -70,7 +69,7 @@ router.get('/getPics', function(req, res) {
 
 router.post('/uploadIDPhoto', function(req, res){
 	//get user_name input
-	//user_name = req.body.userName;
+	user_name = req.body.userName;
 	//check for user_name in DyanomoDB
 	/*var hasName = photoManager.getUserIdPhoto(user_name);
 	if (hasName){
@@ -78,19 +77,19 @@ router.post('/uploadIDPhoto', function(req, res){
 	}*/	
 	//get image upload
 	console.log(req);
-	image = req.files.upload;
+	id_photo = req.files.upload;
+	id_photo_name = image.name;
 	
 	//add file to S3, return S3 URL
-	var photo_url = photoManager.addToS3(image);
-<<<<<<< HEAD
+	var photo_url = photoManager.addToS3(id_photo);
+
 	
 	
 	//need to pass in string format???????????????
 	//photoManager.addToDynamoDB(photo_url, user_name);
-=======
-	//add S3 URL and user_name to DynamoDB
-	photoManager.addToDynamoDB(photo_url,user_name);
->>>>>>> 54734fd3b262f1d968860b202e81adf7856b57e4
+
+	//add S3 URL and S3 object Key (file_name) and user_name to DynamoDB
+	photoManager.addToDynamoDB(photo_url, user_name, id_photo_name);
 	
 	res.send('Successfully uploaded ');
 })
