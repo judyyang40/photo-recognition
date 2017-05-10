@@ -12,9 +12,17 @@
         <div class="row">
             <h1>Confirm Identity</h1>
             <div class="col-md-6">
+            <form action="/verifyUser" method="post" enctype="multipart/form-data">
+                
+                	User Name: <br>
+						<input type="text" limit = "50" name="userName">
+					<br><br><br>
+               		<input type="submit" value="Upload">
+				</form>
             </div>
             <div class="col-md-6">
-                <form action="uploadtakepicture" method="post" enctype="multipart/form-data">
+                
+               		<form action="/uploadtakepicture" method="post" enctype="multipart/form-data">
                 <!--<input type="file" accept="image/*" capture="camera" name="liveImage">-->
                     <video id="video"></video>
                     <canvas id="canvas" style="display:none;"></canvas>
@@ -24,6 +32,9 @@
                     <button class="btn btn-default" id="startbutton">Capture</button>
                     <input type="hidden" name="pic" id="pic">
                     <input class="btn btn-default" type="submit" value="Confirm">
+                    
+                    
+                    
                 </form>
             </div>
         </div>
