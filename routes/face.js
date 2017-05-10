@@ -11,13 +11,14 @@ var GET_FACE_ID_URL = 'https://westus.api.cognitive.microsoft.com/face/v1.0/dete
  * Gets a faceid for the given picture
  * @returns {Promise} Promise with corrected faceid if succeeded, error otherwise.
  */
-exports.getFaceId = function (url) {
+module.exports.getFaceId = function (url) {
+    //console.log(url);
     return new Promise(
         function (resolve, reject) {
                 var requestData = {
                     url: GET_FACE_ID_URL,
                     headers: {
-                        "Ocp-Apim-Subscription-Key": API_KEY
+                        "Ocp-Apim-Subscription-Key": "84f0628ab42544e887665b5cf4d160e8"
                     },
                     form: {
                         'url': url
@@ -45,13 +46,13 @@ exports.getFaceId = function (url) {
  * Compares two pictures with the given faceids
  * @returns {Promise} Promise with confidence if succeeded, error otherwise.
  */
-exports.compareFace = function (faceId1, faceId2) {
+module.exports.compareFace = function (faceId1, faceId2) {
     return new Promise (
         function (resolve, reject) {
                 var requestData = {
                     url: FACE_VERIFY_URL,
                     headers: {
-                        "Ocp-Apim-Subscription-Key": API_KEY
+                        "Ocp-Apim-Subscription-Key": "84f0628ab42544e887665b5cf4d160e8"
                     },
                     form: {
                         'faceId1': faceId1,

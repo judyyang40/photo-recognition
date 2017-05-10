@@ -1,0 +1,25 @@
+<!doctype html>
+<html>
+<head>
+
+<meta charset="UTF-8">
+<title>Photo ID Recognition</title>
+</head>
+
+<body>
+
+<h2>Please upload ID photo to our Database.</h2>
+
+<form action="/uploadIDPhoto" id= "uploadIDPhoto" method="post" enctype="multipart/form-data">
+	ID Name: <br>
+	<input type="text" limit = "40" name="userName">
+	<br><br>
+	Please upload photo here: <br>
+	<input type="file" name="upload">
+	<br><br>
+	<input type="submit" value="Upload">
+</form>
+
+
+</body>
+</html>

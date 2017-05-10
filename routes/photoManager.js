@@ -48,8 +48,8 @@ module.exports.addToDynamoDB = function (file_url, user_name) {
 }
 
 
-
-module.exports.getUserIdPhoto = function(user_name) {
+//first step: if user exists, get photo url. if not, create new user in dynamo and return default pic url
+module.exports.getUserIdPhoto = function(user_name, callback) {
 	var table = new AWS.DynamoDB({apiVersion: '2012-08-10', params: {TableName: 'IdPhoto'}});
 	
 	var params = {
@@ -58,14 +58,45 @@ module.exports.getUserIdPhoto = function(user_name) {
 		}	
 	}
 	table.getItem(params, function(err, data){
-		if (err) return false;
+		if (err) {
+		}
 		else {
-			return data.Item;
+			if(data.Item != null)
+				callback(data.Item.file_url.S);
+			else {
+				newUser(user_name);
+				callback("https://pbs.twimg.com/profile_images/2633978789/80508321d8ce3ba8aa264380bb7eba33_400x400.png");
+			}
 		}
 	})
-	
+
+}
+//input new user with only username
+newUser = function(user_name) {
+	var table = new AWS.DynamoDB({apiVersion: '2012-08-10', params: {TableName: 'IdPhoto'}});
+	var itemParams = {
+    	Item: {
+        	'Name':  {S: user_name}
+    	},
+    	ReturnConsumedCapacity: 'TOTAL'
+	};
+	table.putItem(itemParams, function(err, data) {});
 }
 
+module.exports.getPics = function(user_name, callback) {
+	var table = new AWS.DynamoDB({apiVersion: '2012-08-10', params: {TableName: 'IdPhoto'}});
+	var params = {
+		Key: {
+			"Name": {S: user_name}
+		}	
+	}
+	table.getItem(params, function(err, data){
+		if (err) {}
+		else {
+			callback({pic1: data.Item.file_url.S, pic2: data.Item.compare_url.S});
+		}
+	})
+}
 
 
 /***
