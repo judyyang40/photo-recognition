@@ -99,6 +99,19 @@ module.exports.getPics = function(user_name, callback) {
 	})
 }
 
+module.exports.testUpload = function(data) {
+	var s3 = new AWS.S3({apiVersion: '2006-03-01'});
+	  s3.putObject(data, function(err, data){
+      if (err) { 
+        console.log(err);
+        console.log('Error uploading data: ', data); 
+      } else {
+        console.log('succesfully uploaded the image!');
+      }
+  });
+
+}
+
 
 /***
 //upload photo file from local disk to S3
