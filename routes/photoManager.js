@@ -12,24 +12,21 @@ module.exports.addToS3 = function (file) {
   	if (!file.data) {
     return alert('Please choose a file to upload first.');
   		}
-  	var fileName = file.name;
 
-  	var uploadParams = {Bucket: 'id-photo', Key: fileName, Body: file.data, ACL:'public-read'};
-	var url ='';
-  	s3.upload(uploadParams, function(err, data) {
-    	if (err) {
-      		return console.log('There was an error uploading your photo: '+ err.message);
-    	}
-    	console.log('Successfully uploaded photo.'); 
-		console.log(data.Location);//working 
-		url=data.Location;
-  	});
-	return url;
+  	var uploadParams = {Bucket: 'id-photo', Key: file.name, Body: file.data, ACL:'public-read'};
+  	var promoise = s3.upload(uploadParams).promise();
+	
+	promise.then(function(data) {
+		console.log(data.Location);
+		return data.Location;
+	}).catch(function(err){
+		console.log(err);		
+	});
 	
 }
 
 
-module.exports.addToDynamoDB = function (file_url, user_name) {
+module.exports.addToDynamoDB = function (file_url, user_name, file_name) {
 	
 	var table = new AWS.DynamoDB({apiVersion: '2012-08-10', params: {TableName: 'IdPhoto'}});
 	// Write the item to the table
@@ -38,6 +35,7 @@ module.exports.addToDynamoDB = function (file_url, user_name) {
     	Item: {
         	'Name':  {S: user_name},
         	'data':  {S: file_url}
+			'file_name':{S: file_name }
     	},
     	ReturnConsumedCapacity: 'TOTAL'
 	};
