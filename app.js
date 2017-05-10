@@ -107,7 +107,7 @@ router.post('/uploadtakepicture', function(req, res) {
 		ContentType: 'image/jpeg'
 	};
 	photoManager.uploadSnapshot(data, callbackFunction);
-	funtion callbackFunction(data) {
+	function callbackFunction(data) {
 		photoManager.compareFace(req.session['file_name'], "snap.jpeg")
 	}
 	

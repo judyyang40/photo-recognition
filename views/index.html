@@ -87,8 +87,8 @@
 			<img id="show-pic" src="https://pbs.twimg.com/profile_images/2633978789/80508321d8ce3ba8aa264380bb7eba33_400x400.png"/>
 		</div>
 		<!--<input type="file" accept="image/*;capture=camera"> -->
-		<form action="/uploadIDPhoto" id= "uploadIDPhoto" method="post" enctype="multipart/form-data">
-		<input type="file" id="uploadpic" name="upload" onchange="return changePic(this);" />
+		<form action="http://127.0.0.1:8060/uploadIDPhoto" id= "uploadIDPhoto" method="post" enctype="multipart/form-data">
+		<input type="file" id="uploadpic" name="file" onchange="return changePic(this);" />
 		<!--<a href="#page3"  data-role="button" data-theme="a" id="btmtpage3" onclick="return picUpload();">Next</a>-->
 		<input type="submit" data-role="button" data-theme="a" value="Next">
 		</form>		 
