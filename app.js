@@ -76,13 +76,22 @@ router.post('/uploadIDPhoto', function(req, res){
 		res.send('User Name already exist!');
 	}*/	
 	//get image upload
-	console.log(req);
+	
 	id_photo = req.files.upload;
-	id_photo_name = image.name;
+	id_photo_name = id_photo.name;
 	
 	//add file to S3, return S3 URL
 
-	var photo_url = photoManager.addToS3(id_photo);
+	var photo_url = "";
+	var promise = photoManager.addToS3(id_photo).promise();
+	
+	
+	promise.then(function(data) {
+		console.log(data);
+		photo_url = data;
+	}).catch(function(err){
+		console.log(err);		
+	});
 
 	//add S3 URL and S3 object Key (file_name) and user_name to DynamoDB
 	photoManager.addToDynamoDB(photo_url, user_name, id_photo_name);

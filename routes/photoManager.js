@@ -14,7 +14,7 @@ module.exports.addToS3 = function (file) {
   		}
 
   	var uploadParams = {Bucket: 'id-photo', Key: file.name, Body: file.data, ACL:'public-read'};
-  	var promoise = s3.upload(uploadParams).promise();
+  	var promise = s3.upload(uploadParams).promise();
 	
 	promise.then(function(data) {
 		console.log(data.Location);
