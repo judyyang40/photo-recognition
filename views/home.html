@@ -2,21 +2,38 @@
 <html>
 <head>
 <title>Photo ID Recognition</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 </head>
 <body>
 
-<h1>Welcome the photo recognition app!</h1>
-<form action="" method="post" enctype="multipart/form-data">
-<input type="file" accept="image/*" capture="camera" name="liveImage">
-<input type="submit" value="Upload">
-</form>
+    <div class="container">
+        <div class="row">
+            <h1>Confirm Identity</h1>
+            <div class="col-md-6">
+            </div>
+            <div class="col-md-6">
+                <form action="uploadtakepicture" method="post" enctype="multipart/form-data">
+                <!--<input type="file" accept="image/*" capture="camera" name="liveImage">-->
+                    <video id="video"></video>
+                    <canvas id="canvas" style="display:none;"></canvas>
+                    <div id="buttoncontent">
 
-<video id="video"></video>
-<canvas id="canvas" style="display:none;"></canvas>
-<div id="buttoncontent">
+                    </div>
+                    <button class="btn btn-default" id="startbutton">Capture</button>
+                    <input type="hidden" name="pic" id="pic">
+                    <input class="btn btn-default" type="submit" value="Confirm">
+                </form>
+            </div>
+        </div>
+        <div class="row">
+            <div class="match-result">
+                % Similar
+            </div>
+        </div>
+    </div>
 
-</div>
-<button id="startbutton">CAPTURE</button>
 
 <script>
 	(function() {
@@ -67,16 +84,16 @@
   function takepicture() {
     video.style.display = "none";
     canvas.style.display = "block";
-    startbutton.innerText= "RETAKE";
+    startbutton.innerText= "Retake";
     canvas.width = width;
     canvas.height = height;
     canvas.getContext('2d').drawImage(video, 0, 0, width, height);
-    var data = canvas.toDataURL('image/png');
-    photo.setAttribute('src', data);
+    var data = canvas.toDataURL('image/jpeg', 0.3);
+    $('#pic').val(data);
   }
 
   startbutton.addEventListener('click', function(ev) {
-    if(startbutton.innerText==="CAPTURE")
+    if(startbutton.innerText==="Capture")
     {
         takepicture();
     }
@@ -84,12 +101,12 @@
     {
         video.style.display = "block";
         canvas.style.display = "none";
-      startbutton.innerText= "CAPTURE";
+      startbutton.innerText= "Capture";
     }
     ev.preventDefault();
   }, false);
 
 })();
-	</script>
+</script>
 </body>
 </html>

@@ -82,7 +82,7 @@ router.post('/uploadIDPhoto', function(req, res){
 	
 	//add file to S3, return S3 URL
 	var photo_url = photoManager.addToS3(image);
-<<<<<<< HEAD
+/*<<<<<<< HEAD
 	
 	
 	//need to pass in string format???????????????
@@ -90,13 +90,25 @@ router.post('/uploadIDPhoto', function(req, res){
 =======
 	//add S3 URL and user_name to DynamoDB
 	photoManager.addToDynamoDB(photo_url,user_name);
->>>>>>> 54734fd3b262f1d968860b202e81adf7856b57e4
+>>>>>>> 54734fd3b262f1d968860b202e81adf7856b57e4*/
 	
 	res.send('Successfully uploaded ');
 })
 
-router.get('/test', function(req, res) {
-	res.sendFile('index2.html', options);
+router.get('/snapshot', function(req, res) {
+	res.sendFile('home.html', options);
+})
+
+router.post('/uploadtakepicture', function(req, res) {
+	buf = new Buffer(req.body.pic.replace(/^data:image\/\w+;base64,/, ""),'base64');
+	var data = {
+		Bucket: 'id-photo',
+		Key: 'snap.jpeg',
+		Body: buf,
+		ContentEncoding: 'base64',
+		ContentType: 'image/jpeg'
+	};
+	photoManager.testUpload(data);
 })
 
 //register routes
