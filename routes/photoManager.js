@@ -26,6 +26,7 @@ module.exports.addToS3 = function (file) {
 }
 
 
+
 module.exports.addToDynamoDB = function (file_url, user_name, file_name) {
 	
 	var table = new AWS.DynamoDB({apiVersion: '2012-08-10', params: {TableName: 'IdPhoto'}});
@@ -34,7 +35,7 @@ module.exports.addToDynamoDB = function (file_url, user_name, file_name) {
 	var itemParams = {
     	Item: {
         	'Name':  {S: user_name},
-        	'data':  {S: file_url}
+        	'data':  {S: file_url},
 			'file_name':{S: file_name }
     	},
     	ReturnConsumedCapacity: 'TOTAL'
