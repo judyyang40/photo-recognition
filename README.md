@@ -28,7 +28,7 @@ Wei:
 Our Scenarios:
 
 1.Input User Name and Birthday
-a.Invoke a lambda function to check if there is an image item matched with the user in DynamoDB
+a.Check if there is an image item matched with the user in DynamoDB
 i.Yes: return URL where file stored in S3 and display on page 2.
 ii.No: go to step 2.
 
@@ -44,6 +44,6 @@ d.Display “Success uploading and number of items in DB”
 a.Invoke camera to capture a live image
 i.Ask for confirm or retake photo
 ii.Display the newly taken image on screen
-b.Press "Analyze" to invoke a lambda function to call Microsoft Cognitive Services Face API for face comparison
+b.Press "Analyze" to call Amazon Rekognition API for face comparison
 
 4.Display similarity result

@@ -95,7 +95,9 @@ router.post('/uploadIDPhoto', function(req, res){
 	res.send('Successfully uploaded ');
 })
 
+
 router.get('/facecomparison', function(req, res) {
+
 	res.sendFile('home.html', options);
 })
 
