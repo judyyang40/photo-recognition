@@ -24,7 +24,7 @@
             </div>
             <div class="col-md-6">
                 
-               		<form action="/uploadtakepicture" method="post" enctype="multipart/form-data">
+               		<form>
                 <!--<input type="file" accept="image/*" capture="camera" name="liveImage">-->
                     <video id="video"></video>
                     <canvas id="canvas" style="display:none;"></canvas>
@@ -33,7 +33,7 @@
                     </div>
                     <button class="btn btn-default" id="startbutton">Capture</button>
                     <input type="hidden" name="pic" id="pic">
-                    <input class="btn btn-default" type="submit" value="Confirm">
+                    <input class="btn btn-default" value="Confirm" onClick="return showResults();">
                     
                     
                     
@@ -41,6 +41,7 @@
             </div>
         </div>
         <div class="row">
+			<h2>Similarity</h2>
             <div class="match-result">
                 % Similar
             </div>
@@ -101,7 +102,7 @@
     canvas.width = width;
     canvas.height = height;
     canvas.getContext('2d').drawImage(video, 0, 0, width, height);
-    var data = canvas.toDataURL('image/jpeg', 0.3);
+    var data = canvas.toDataURL('image/jpeg', 0.2);
     $('#pic').val(data);
   }
 

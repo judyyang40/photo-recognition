@@ -22,20 +22,6 @@ function changePic(input) {
     }
 }
 
-/*function picUpload() {
-    console.log($('#uploadpic')[0].files[0]);
-    var formData = new FormData($('#uploadpic')[0].files[0]);
-    $.ajax({
-        url: '/picUpload',
-        type: 'POST',
-        data: formData,
-        processData: false,
-        contentType: false,
-        success: function(data) {
-            console.log('upload successful');
-        }
-    })
-}*/
 
 function getPics() {
     $.get('/getPics', function(data) {
@@ -43,4 +29,15 @@ function getPics() {
         $('#pic2').attr('src', data.pic2);
         //$('#compare-results').html(data.match);
     });
+}
+
+function showResults() {
+	//console.log("showresults"+ $('#pic'));
+	
+	$.post('/uploadtakepicture',
+	{pic: $('#pic').val()},
+	function(data) {
+		console.log(data);
+		$('.match-result').html(data[0].Similarity+"%   Confidence: "+ data[0].Face.Confidence);
+	});
 }

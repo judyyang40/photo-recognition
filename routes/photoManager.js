@@ -116,12 +116,12 @@ module.exports.uploadSnapshot = function(data, callback) {
 }
 
 
-module.exports.compareFace = function (idPhoto_name, liveImage_name){
+module.exports.compareFace = function (idPhoto_name, liveImage_name, callback){
 	var BUCKET = "id-photo";
 	var rekognition = new AWS.Rekognition();
 
 	var params = {
-		"SimilarityThreshold": 50,
+		"SimilarityThreshold": 0,
 		"SourceImage": {
 			"S3Object": {
 				"Bucket":BUCKET,
@@ -140,7 +140,8 @@ module.exports.compareFace = function (idPhoto_name, liveImage_name){
 	var promise = rekognition.compareFaces(params).promise();
 	
 	promise.then(function(data) {
-		return data.FaceMatches;
+		//console.log(data.FaceMatches);
+		callback(data.FaceMatches);
 	}).catch(function(err){
 		console.log(err);		
 	});

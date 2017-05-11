@@ -28,7 +28,7 @@ var photoManager = require('./routes/photoManager.js');
 var router = express.Router();
 
 router.get('/', function(req, res) {
-	res.sendFile('index.html', options);
+	res.sendFile('index2.html', options);
 })
 
 router.post('/submitInfo', function(req, res) {
@@ -91,11 +91,12 @@ router.post('/uploadIDPhoto', function(req, res){
 	res.send('Successfully uploaded ');
 })
 
-router.get('/snapshot', function(req, res) {
+router.get('/confirm', function(req, res) {
 	res.sendFile('home.html', options);
 })
 
 router.post('/uploadtakepicture', function(req, res) {
+	
 	buf = new Buffer(req.body.pic.replace(/^data:image\/\w+;base64,/, ""),'base64');
 	var data = {
 		Bucket: 'id-photo',
@@ -105,8 +106,11 @@ router.post('/uploadtakepicture', function(req, res) {
 		ContentType: 'image/jpeg'
 	};
 	photoManager.uploadSnapshot(data, callbackFunction);
-	funtion callbackFunction(data) {
-		photoManager.compareFace(req.session['file_name'], "snap.jpeg")
+	function callbackFunction(data) {
+		photoManager.compareFace(req.session['file_name'], "snap.jpeg", showResults);
+		function showResults(data) {
+			res.json(data);
+		}
 	}
 	
 })
