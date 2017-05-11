@@ -16,7 +16,7 @@ Chu-Yuan & Tao:
 2. Application Integration
 
 Jing:
-1. Front End of Web App
+1. Front End of Web App (Abandoned version stored in index.html)
 2. Front End Image Taking and Upload(Web & Phone)
 3. Project Documentation
 
