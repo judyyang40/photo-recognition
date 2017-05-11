@@ -93,11 +93,12 @@ router.post('/uploadIDPhoto', function(req, res){
 	res.send('Successfully uploaded ');
 })
 
-router.get('/snapshot', function(req, res) {
+router.get('/confirm', function(req, res) {
 	res.sendFile('home.html', options);
 })
 
 router.post('/uploadtakepicture', function(req, res) {
+	
 	buf = new Buffer(req.body.pic.replace(/^data:image\/\w+;base64,/, ""),'base64');
 	var data = {
 		Bucket: 'id-photo',
@@ -108,7 +109,10 @@ router.post('/uploadtakepicture', function(req, res) {
 	};
 	photoManager.uploadSnapshot(data, callbackFunction);
 	function callbackFunction(data) {
-		photoManager.compareFace(req.session['file_name'], "snap.jpeg")
+		photoManager.compareFace(req.session['file_name'], "snap.jpeg", showResults);
+		function showResults(data) {
+			res.json(data);
+		}
 	}
 	
 })
