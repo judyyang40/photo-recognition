@@ -6,8 +6,33 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <script type="text/javascript" src="index.js"></script>
+ <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="site.css">
+
+
+
 </head>
 <body>
+    <nav class="navbar navbar-inverse">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>                        
+                    </button>
+                    <a class="navbar-brand" href="/">Face Comparison App</a>
+                </div>
+                <div class="collapse navbar-collapse" id="myNavbar">
+                    <ul class="nav navbar-nav">
+                        
+                </div>
+            </div>
+        </nav>
 
     <div class="container">
         <div class="row">
@@ -18,8 +43,9 @@
                 	<br> User Name: <br>
 						<input type="text" limit = "50" id="userName" name="userName">
 					<br><br><br>
-               		<input onclick="return submitInfo();" value="Search for id photo">
+               		<input type="button" class="btn btn-default" onclick="return submitInfo();" value="Search for id photo">
 				</form>
+          		<br><br>
            		<img id="id-pic">
             </div>
             <div class="col-md-6">
@@ -33,18 +59,14 @@
                     </div>
                     <button class="btn btn-default" id="startbutton">Capture</button>
                     <input type="hidden" name="pic" id="pic">
-                    <input class="btn btn-default" value="Confirm" onClick="return showResults();">
-                    
-                    
+                    <input type="button" class="btn btn-default" value="Confirm" onClick="return showResults();">
                     
                 </form>
             </div>
         </div>
         <div class="row">
-			<h2>Similarity</h2>
-            <div class="match-result">
-                % Similar
-            </div>
+            <div id="similarity"></div>
+			<div id="confidence"></div>
         </div>
     </div>
 

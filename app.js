@@ -28,6 +28,10 @@ var photoManager = require('./routes/photoManager.js');
 var router = express.Router();
 
 router.get('/', function(req, res) {
+	res.sendFile('front.html', options);
+})
+
+router.get('/useridphotoupload', function(req, res) {
 	res.sendFile('index2.html', options);
 })
 
@@ -91,7 +95,7 @@ router.post('/uploadIDPhoto', function(req, res){
 	res.send('Successfully uploaded ');
 })
 
-router.get('/confirm', function(req, res) {
+router.get('/facecomparison', function(req, res) {
 	res.sendFile('home.html', options);
 })
 

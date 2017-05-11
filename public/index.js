@@ -37,7 +37,10 @@ function showResults() {
 	$.post('/uploadtakepicture',
 	{pic: $('#pic').val()},
 	function(data) {
-		console.log(data);
-		$('.match-result').html(data[0].Similarity+"%   Confidence: "+ data[0].Face.Confidence);
+		/*console.log(data[0].Similarity);
+		if(data[0].Similarity > 60)
+			$("#similarity").css('color', 'green');*/
+		$('#similarity').html("<h2>Similarity</h2><h3>"+data[0].Similarity+"%</h3>");
+		$('#confidence').html("<h2>Confidence</h2><h3>"+data[0].Face.Confidence+"%</h3>")
 	});
 }

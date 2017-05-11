@@ -34,7 +34,7 @@ module.exports.getFaceId = function (url) {
                         reject(body);
                     }
                     else {
-                      resolve(body['faceId']);
+                        resolve(body['faceId']);
                     }
 
                 });
@@ -69,9 +69,9 @@ module.exports.compareFace = function (faceId1, faceId2) {
                         reject(body);
                     }
                     else {
-                      resolve(body);
-                      similarity = body['confidence'];
-                      return similarity;
+                        resolve(body);
+                        similarity = body['confidence'];
+                        return similarity;
                     }
 
                 });
