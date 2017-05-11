@@ -44,6 +44,6 @@ d.Display “Success uploading and number of items in DB”
 a.Invoke camera to capture a live image
 i.Ask for confirm or retake photo
 ii.Display the newly taken image on screen
-b.Press "Analyze" to invoke a lambda function to call Microsoft Cognitive Services Face API for face comparison
+b.Press "Analyze" to invoke a lambda function to call Amazon Rekognition API for face comparison
 
 4.Display similarity result
